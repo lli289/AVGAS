@@ -2,7 +2,10 @@
 
 export(ABC)
 export(Extract)
+export(initial)
 importFrom(Matrix,rankMatrix)
+importFrom(VariableScreening,screenIID)
 importFrom(pracma,orth)
+importFrom(stats,na.exclude)
 importFrom(stats,rnorm)
 importFrom(utils,combn)
