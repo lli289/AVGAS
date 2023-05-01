@@ -1,13 +1,51 @@
 #' Extracting specific columns from a data\cr
 #'
-#' @param X
-#' @param varind
-#' @param interaction.ind
+#' This function extracts specific columns from \code{X} based on \code{varind}.
+#' It provides an efficient procedure for conducting ABC evaluation,
+#' especially when working with high-dimensional data.
 #'
-#' @return
+#' @details Please be aware that this function automatically renames column names
+#'  into a designated format (e.g., X.1, X.2 for main effects, and X.1X.2 for
+#'  interaction effect, etc), regardless of the original column names in \code{X}.
+#'
+#'  Under no heredity condition, this function can be applied in the context of
+#'  interaction only linear regression models. See Example section for details.
+#'
+#' @param X Input data. An optional data frame, or numeric matrix of dimension
+#' \code{n} by \code{nmain.p}. Note that the two-way interaction effects should not
+#' be included in \code{X} because this function automatically generates the
+#' corresponding two-way interaction effects if needed.
+#' @param varind A numeric vector of class \code{c()} that specifies the indices
+#' of variables to be extracted from \code{X}. Duplicated values are not allowed.
+#' See Example section for details.
+#' @param interaction.ind A two-column numeric matrix containing all possible
+#' two-way interaction effects. It must be generated outside of this function using
+#' \code{t(utils::combn())}. See Example section for details.
+#'
+#' @return A numeric matrix is returned.
 #' @export
+#' @importFrom utils combn
+#' @importFrom stats rnorm
 #'
-#' @examples
+#' @seealso \code{\link{ABC}}.
+#'
+#' @examples # Extract main effect X1 and X2 from X1,...X4
+#' set.seed(0)
+#' X1 <- matrix(rnorm(20), ncol = 4)
+#' y1 <- X1[, 2] + rnorm(5)
+#' interaction.ind <- t(combn(4,2))
+#'
+#' @examples # Extract main effect X1 and interaction effect X1X2 from X1,..X4
+#' Extract(X1, varind = c(1,5), interaction.ind)
+#'
+#' @examples # Extract interaction effect X1X2 from X1,...X4
+#' Extract(X1, varind = 5, interaction.ind)
+#'
+#' @examples # Extract using duplicated values in varind.
+#' \dontrun{
+#' Extract(X1, varind = c(1,1), interaction.ind) # this will not run
+#' }
+
 Extract <- function(X, varind, interaction.ind){
   if (as.logical(any(duplicated(varind[which(varind!=0)])))){
     stop("There cannot be duplicated values in varind.")
