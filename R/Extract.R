@@ -88,7 +88,35 @@ Extract <- function(X, varind, interaction.ind){
   return(data_extract)
 }
 
+mychoose <- function(k1){
+  if (k1 == 1){
+    return(1)
+  }else{
+    return(choose(k1,2))
+  }
+}
+
 mydim <- function(x){
   if (is.matrix(x)) dim(x)
   else return(1)
+}
+
+mysample <- function(x, size, replace = F, prob = NULL){
+  if (length(x) == 1) return(x)
+  if (length(x) > 1) return(sample(x, size, replace, prob))
+}
+
+sort_zeros <- function(vec){
+  non_zeros <- vec[vec != 0]
+  zeros <- vec[vec == 0]
+  if (length(zeros) > 0){
+    return(c(sort(non_zeros), zeros))
+  }else{
+    return(c(sort(non_zeros)))
+  }
+}
+
+unique_rows <- function(matrix) {
+  unique_matrix <- matrix[!duplicated(matrix[,ncol(matrix)]), ]
+  return(unique_matrix)
 }
