@@ -2,16 +2,16 @@
 % Please edit documentation in R/cross.R
 \name{cross}
 \alias{cross}
-\title{Performing crossover}
+\title{Performing crossover\cr}
 \usage{
-cross(parents, heredity = "Strong", nmain.p, r1, r2, interaction.ind)
+cross(parents, heredity = "Strong", nmain.p, r1, r2, interaction.ind = NULL)
 }
 \arguments{
 \item{parents}{A numeric matrix of dimension \code{q} by \code{r1+r2},
 obtained from \code{initial} or previous generation where each row corresponding
 a fitted model and each column representing the predictor index in the fitted model.}
 
-\item{heredity}{whether to enforce Strong, Weak, or No heredity. Default is "Strong".}
+\item{heredity}{Whether to enforce Strong, Weak, or No heredity. Default is "Strong".}
 
 \item{nmain.p}{A numeric value that represents the total number of main effects
 in \code{X}.}
