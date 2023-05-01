@@ -2,6 +2,7 @@
 
 export(ABC)
 export(Extract)
+export(cross)
 export(initial)
 importFrom(Matrix,rankMatrix)
 importFrom(VariableScreening,screenIID)
