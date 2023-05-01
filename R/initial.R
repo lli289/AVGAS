@@ -19,8 +19,7 @@
 #' corresponding two-way interaction effects if needed.
 #' @param y Response variable. A \code{n}-dimensional vector, where \code{n} is the number
 #' of observations in \code{X}.
-#' @param heredity whether to enforce Strong, Weak, or No heredity.
-#' Default is "Strong".
+#' @param heredity whether to enforce Strong, Weak, or No heredity. Default is "Strong".
 #' @param nmain.p A numeric value that represents the total number of main effects
 #' in \code{X}.
 #' @param r1 A numeric value indicating the maximum number of main effects.
@@ -49,6 +48,8 @@
 #' \item{mainpool}{Ranked main effects in \code{X}.}
 #' @export
 #' @importFrom utils combn
+#' @importFrom Matrix rankMatrix
+#' @importFrom pracma orth
 #' @importFrom stats rnorm
 #' @importFrom VariableScreening screenIID
 #' @importFrom stats na.exclude
