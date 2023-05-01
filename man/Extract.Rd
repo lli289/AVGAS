@@ -55,5 +55,5 @@ Extract(X1, varind = c(1,1), interaction.ind) # this will not run
 }
 }
 \seealso{
-\code{\link{ABC}}.
+\code{\link{ABC}}, \code{\link{initial}}.
 }
