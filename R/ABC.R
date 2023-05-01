@@ -21,7 +21,7 @@
 #' corresponding two-way interaction effects if needed.
 #' @param y Response variable. A \code{n}-dimensional vector, where \code{n} is the number
 #' of observations in \code{X}.
-#' @param heredity whether to enforce Strong, Weak, or No heredity. Default is "Strong".
+#' @param heredity Whether to enforce Strong, Weak, or No heredity. Default is "Strong".
 #' @param nmain.p A numeric value that represents the total number of main effects
 #' in \code{X}.
 #' @param extract A either "Yes" or "No" logical vector that represents whether or not
@@ -70,7 +70,7 @@ ABC <- function(X, y, heredity = "Strong", nmain.p, extract = "No", varind = NUL
   if (extract == "Yes"){
     if (is.null(varind)) stop("You must specify the variables to be extracted")
     if (is.null(interaction.ind)) stop("Interaction.ind is missing.
-                                       Use t(combn()) to generate interaction matrix.")
+                                       Use t(utils::combn()) to generate interaction matrix.")
     data_extract <- Extract(X, varind, interaction.ind)
     data <- data_extract
     r.I <- Matrix::rankMatrix(data)[1]
