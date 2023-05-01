@@ -19,20 +19,12 @@
 #' \code{n} by \code{nmain.p}. Note that the two-way interaction effects should not
 #' be included in \code{X} because this function automatically generates the
 #' corresponding two-way interaction effects if needed.
-#' @param y Response variable. A numeric vector of class \code{c()} of length \code{n}.
+#' @param y Response variable. A \code{n}-dimensional vector, where \code{n} is the number
+#' of observations in \code{X}.
 #' @param heredity whether to enforce Strong, Weak, or No heredity.
 #' Default is "Strong".
 #' @param nmain.p A numeric value that represents the total number of main effects
 #' in \code{X}.
-#' @param sigma A either "known" or "unknown" logical vector that represents whether
-#' or not users know the standard deviation of the noise term . Note that in practice,
-#' \code{sigma} is usually unknown.
-#' \itemize{
-#' \item If \code{sigma = "known"}, then users need to enter a numeric value.
-#' \item If \code{sigma = "unkown"}, then this function automatically estimates
-#' \code{sigma} using Root Mean Square Error (RMSE).
-#' }
-#' Default is "unknown".
 #' @param extract A either "Yes" or "No" logical vector that represents whether or not
 #' to extract specific columns from \code{X}. Default is "No".
 #' @param varind Only used when \code{extract = "Yes"}. A numeric vector of class
@@ -60,7 +52,7 @@
 #' @importFrom pracma orth
 #' @importFrom stats rnorm
 #'
-#' @seealso \code{\link{Extract}}.
+#' @seealso \code{\link{Extract}}, \code{\link{initial}}.
 #' @references
 #' Ye, C. and Yang, Y., 2019. \emph{High-dimensional adaptive minimax sparse estimation with interactions.}
 #'
@@ -73,10 +65,9 @@
 #' y<- 1+X[,1]+X[,2]+X[,3]+X[,4]+epl
 #' ABC(X, y, nmain.p = 4)
 #' ABC(X, y, nmain.p = 4, extract = "Yes",
-#'   varind = c(1,2,5), interaction.ind = interaction.ind)
+#'     varind = c(1,2,5), interaction.ind = interaction.ind)
 
-ABC <- function(X, y, heredity = "Strong", nmain.p,
-                sigma = "unknown",extract = "No", varind = NULL,
+ABC <- function(X, y, heredity = "Strong", nmain.p, extract = "No", varind = NULL,
                 interaction.ind = NULL, pi1 = 0.32, pi2 = 0.32, pi3 = 0.32,
                 lambda = 10){
   colnames(X) <- make.names(rep("","X",ncol(X)+1),unique=TRUE)[-1]
@@ -103,12 +94,7 @@ ABC <- function(X, y, heredity = "Strong", nmain.p,
     yhat <- (data)%*%solve(crossprod(data), t(data)%*%y, tol = 1e-50)
   }
   SSE <- sum((y - yhat)^2)
-
-  if (sigma == "known"){
-    sigma = sigma
-  }else{
-    sigma = sqrt(SSE/(length((y - yhat))- length(allpar)))
-  }
+  sigma = sqrt(SSE/(length((y - yhat))- length(allpar)))
 
   if (heredity == "Strong"){
     C.I.strong <- -log(pi1)+log(min(nmain.p,n))+log(min(mychoose(k1),n))
