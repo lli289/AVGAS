@@ -9,7 +9,6 @@ ABC(
   y,
   heredity = "Strong",
   nmain.p,
-  sigma = "unknown",
   extract = "No",
   varind = NULL,
   interaction.ind = NULL,
@@ -25,23 +24,14 @@ ABC(
 be included in \code{X} because this function automatically generates the
 corresponding two-way interaction effects if needed.}
 
-\item{y}{Response variable. A numeric vector of class \code{c()} of length \code{n}.}
+\item{y}{Response variable. A \code{n}-dimensional vector, where \code{n} is the number
+of observations in \code{X}.}
 
 \item{heredity}{whether to enforce Strong, Weak, or No heredity.
 Default is "Strong".}
 
 \item{nmain.p}{A numeric value that represents the total number of main effects
 in \code{X}.}
-
-\item{sigma}{A either "known" or "unknown" logical vector that represents whether
-or not users know the standard deviation of the noise term . Note that in practice,
-\code{sigma} is usually unknown.
-\itemize{
-\item If \code{sigma = "known"}, then users need to enter a numeric value.
-\item If \code{sigma = "unkown"}, then this function automatically estimates
-\code{sigma} using Root Mean Square Error (RMSE).
-}
-Default is "unknown".}
 
 \item{extract}{A either "Yes" or "No" logical vector that represents whether or not
 to extract specific columns from \code{X}. Default is "No".}
@@ -96,11 +86,11 @@ epl <- rnorm(50,0,0.01)
 y<- 1+X[,1]+X[,2]+X[,3]+X[,4]+epl
 ABC(X, y, nmain.p = 4)
 ABC(X, y, nmain.p = 4, extract = "Yes",
-  varind = c(1,2,5), interaction.ind = interaction.ind)
+    varind = c(1,2,5), interaction.ind = interaction.ind)
 }
 \references{
 Ye, C. and Yang, Y., 2019. \emph{High-dimensional adaptive minimax sparse estimation with interactions.}
 }
 \seealso{
-\code{\link{Extract}}.
+\code{\link{Extract}}, \code{\link{initial}}.
 }
