@@ -4,7 +4,7 @@
 \alias{Extract}
 \title{Extracting specific columns from a data\cr}
 \usage{
-Extract(X, varind, interaction.ind)
+Extract(X, varind, interaction.ind = NULL)
 }
 \arguments{
 \item{X}{Input data. An optional data frame, or numeric matrix of dimension
