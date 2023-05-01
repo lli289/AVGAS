@@ -28,8 +28,7 @@ corresponding two-way interaction effects if needed.}
 \item{y}{Response variable. A \code{n}-dimensional vector, where \code{n} is the number
 of observations in \code{X}.}
 
-\item{heredity}{whether to enforce Strong, Weak, or No heredity.
-Default is "Strong".}
+\item{heredity}{whether to enforce Strong, Weak, or No heredity. Default is "Strong".}
 
 \item{nmain.p}{A numeric value that represents the total number of main effects
 in \code{X}.}
