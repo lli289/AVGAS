@@ -41,7 +41,8 @@
 #' automatically generates corresponding two-way interaction effects from \code{X}.
 #' @param interaction.ind Only used when \code{extract = "Yes"}. A two-column numeric
 #' matrix containing all possible two-way interaction effects. It must be generated
-#' outside of this function using \code{t(utils::combn())}.
+#' outside of this function using \code{t(utils::combn())}. See Example section for
+#' details.
 #' @param pi1 A numeric value between 0 and 1, defined by users. Default is 0.32.
 #' For guidance on selecting an appropriate value, please refer to the Details section.
 #' @param pi2 A numeric value between 0 and 1, defined by users. Default is 0.32.
@@ -129,4 +130,12 @@ ABC <- function(X, y, heredity = "Strong", nmain.p,
     if(k1 == 1) warning("This model contains only one predictor")
   }
   return(ABC)
+}
+
+mychoose <- function(k1){
+  if (k1 == 1){
+    return(1)
+  }else{
+    return(choose(k1,2))
+  }
 }
