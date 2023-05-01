@@ -27,7 +27,7 @@
 #' @importFrom utils combn
 #' @importFrom stats rnorm
 #'
-#' @seealso \code{\link{ABC}}.
+#' @seealso \code{\link{ABC}}, \code{\link{initial}}.
 #'
 #' @examples # Extract main effect X1 and X2 from X1,...X4
 #' set.seed(0)
