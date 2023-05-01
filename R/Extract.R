@@ -24,8 +24,6 @@
 #'
 #' @return A numeric matrix is returned.
 #' @export
-#' @importFrom utils combn
-#' @importFrom stats rnorm
 #'
 #' @seealso \code{\link{ABC}}, \code{\link{initial}}.
 #'
@@ -46,7 +44,9 @@
 #' Extract(X1, varind = c(1,1), interaction.ind) # this will not run
 #' }
 
-Extract <- function(X, varind, interaction.ind){
+Extract <- function(X, varind, interaction.ind = NULL){
+  if (is.null(interaction.ind)) stop("Interaction.ind is missing.
+                                       Use t(utils::combn()) to generate interaction matrix.")
   if (as.logical(any(duplicated(varind[which(varind!=0)])))){
     stop("There cannot be duplicated values in varind.")
   }
