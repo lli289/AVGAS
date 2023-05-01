@@ -1,4 +1,4 @@
-#' Performing crossover
+#' Performing crossover\cr
 #'
 #' This function performs crossover which only stores all fitted models without
 #' making any comparison. The selected indices in each fitted model will be
@@ -8,7 +8,7 @@
 #' @param parents  A numeric matrix of dimension \code{q} by \code{r1+r2},
 #' obtained from \code{initial} or previous generation where each row corresponding
 #' a fitted model and each column representing the predictor index in the fitted model.
-#' @param heredity whether to enforce Strong, Weak, or No heredity. Default is "Strong".
+#' @param heredity Whether to enforce Strong, Weak, or No heredity. Default is "Strong".
 #' @param nmain.p A numeric value that represents the total number of main effects
 #' in \code{X}.
 #' @param r1 A numeric value indicating the maximum number of main effects.
@@ -35,7 +35,9 @@
 #' c1 <- cross(p1, nmain.p=4, r1 = 3, r2 = 3,
 #'     interaction.ind = interaction.ind)
 
-cross <- function(parents, heredity = "Strong", nmain.p, r1, r2, interaction.ind){
+cross <- function(parents, heredity = "Strong", nmain.p, r1, r2, interaction.ind = NULL){
+  if (is.null(interaction.ind)) stop("Interaction.ind is missing.
+                                       Use t(utils::combn()) to generate interaction matrix.")
   max_model_size  <- length(parents$initialize[1,])
   parentsMB <- parents$InterRank[,1]
 
@@ -48,7 +50,7 @@ cross <- function(parents, heredity = "Strong", nmain.p, r1, r2, interaction.ind
                         parents$initialize[j,][which(!parents$initialize[j,]==0)])
       crossind <- as.numeric(unlist(crossind))
 
-      crossindmain <- as.numeric(unique(crossind[which(crossind<=nmain.p)]))
+      crossindmain <- as.numeric(unique(crossind[which(crossind%in% 1:nmain.p)]))
       crossindinter <- as.numeric(unique(crossind[which(crossind>nmain.p)]))
 
       if (length(crossindmain)<=r1 & length(crossindinter)<=r2){
