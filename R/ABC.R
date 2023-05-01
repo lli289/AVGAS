@@ -21,8 +21,7 @@
 #' corresponding two-way interaction effects if needed.
 #' @param y Response variable. A \code{n}-dimensional vector, where \code{n} is the number
 #' of observations in \code{X}.
-#' @param heredity whether to enforce Strong, Weak, or No heredity.
-#' Default is "Strong".
+#' @param heredity whether to enforce Strong, Weak, or No heredity. Default is "Strong".
 #' @param nmain.p A numeric value that represents the total number of main effects
 #' in \code{X}.
 #' @param extract A either "Yes" or "No" logical vector that represents whether or not
@@ -47,10 +46,6 @@
 #' @return A numeric value is returned. It represents the ABC score of the fitted model.
 #'
 #' @export
-#' @importFrom utils combn
-#' @importFrom Matrix rankMatrix
-#' @importFrom pracma orth
-#' @importFrom stats rnorm
 #'
 #' @seealso \code{\link{Extract}}, \code{\link{initial}}.
 #' @references
@@ -118,10 +113,4 @@ ABC <- function(X, y, heredity = "Strong", nmain.p, extract = "No", varind = NUL
   return(ABC)
 }
 
-mychoose <- function(k1){
-  if (k1 == 1){
-    return(1)
-  }else{
-    return(choose(k1,2))
-  }
-}
+
