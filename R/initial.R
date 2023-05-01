@@ -19,7 +19,7 @@
 #' corresponding two-way interaction effects if needed.
 #' @param y Response variable. A \code{n}-dimensional vector, where \code{n} is the number
 #' of observations in \code{X}.
-#' @param heredity whether to enforce Strong, Weak, or No heredity. Default is "Strong".
+#' @param heredity Whether to enforce Strong, Weak, or No heredity. Default is "Strong".
 #' @param nmain.p A numeric value that represents the total number of main effects
 #' in \code{X}.
 #' @param r1 A numeric value indicating the maximum number of main effects.
@@ -71,7 +71,7 @@ initial <- function(X, y, heredity = "Strong",
                     pi1 = 0.32, pi2 = 0.32, pi3 = 0.32,
                     lambda = 10, q = 40){
   if (is.null(interaction.ind)) stop("Interaction.ind is missing.
-                                       Use t(combn()) to generate interaction matrix.")
+                                       Use t(utils::combn()) to generate interaction matrix.")
   colnames(X) <- make.names(rep("","X",ncol(X)+1),unique=TRUE)[-1]
   max_model_size <- r1 + r2
   parents <- matrix(0, nrow = q, ncol = max_model_size)
