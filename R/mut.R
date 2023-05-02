@@ -43,7 +43,7 @@
 #' interaction.ind <- t(combn(4,2))
 #' X <- matrix(rnorm(50*4,1,0.1), 50, 4)
 #' epl <- rnorm(50,0,0.01)
-#' y<- 1+X[,1]+X[,2]+X[,1]*X[,2]+epl
+#' y <- 1+X[,1]+X[,2]+X[,1]*X[,2]+epl
 #' p1 <- initial(X, y, nmain.p = 4, r1 = 3, r2 = 3,
 #'     interaction.ind = interaction.ind, q = 5)
 #' m1 <- mut(p1, nmain.p = 4, r1 = 3, r2 = 3,
@@ -55,6 +55,9 @@
 mut <- function(parents, heredity = "Strong", nmain.p,
                 r1, r2, interaction.ind = NULL, interonly = "No",
                 aprob = 0.9, dprob = 0.9, aprobm = 0.1, aprobi=0.9, dprobm = 0.9, dprobi = 0.1){
+  if (is.null(interaction.ind)) stop("Interaction.ind is missing.
+                                       Use t(utils::combn()) to generate interaction matrix.")
+
   single.child.mutated <- parents$initialize
 
   for (i in 1: nrow(single.child.mutated)) {
