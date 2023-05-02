@@ -94,7 +94,7 @@ The main effect deletion probability during deletion. Default is 0.9.}
 The interaction effect deletion probability during deletion. Default is 0.1.}
 }
 \value{
-A list of output. If \code{allout = "No"}, then the components are:
+A list of output. If \code{allout = "Yes"}, then the components are:
 \itemize{
 \item{newparents}{ New parents models used for t+1-th generation. A numeric matrix
 of dimension \code{q} by \code{r1+r2} where each row represents a fitted model.
