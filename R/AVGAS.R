@@ -177,3 +177,4 @@ AVGAS <- function(X, y, heredity = "Strong", nmain.p, r1, r2, sigma = NULL,
     ))
   }
 }
+
