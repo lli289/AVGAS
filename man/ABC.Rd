@@ -98,6 +98,11 @@ ABC(X, y, nmain.p = 4, sigma = 0.01)
 ABC(X, y, nmain.p = 4, sigma = 0.01, extract = "Yes",
     varind = c(1,2,5), interaction.ind = interaction.ind)
 
+# model with only one predictor
+\dontrun{
+ABC(X, y, nmain.p = 4, extract = "Yes",
+  varind = 1, interaction.ind = interaction.ind) # warning message
+}
 }
 \references{
 Ye, C. and Yang, Y., 2019. \emph{High-dimensional adaptive minimax sparse estimation with interactions.}
