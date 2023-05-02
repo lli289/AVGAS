@@ -45,7 +45,8 @@
 #' The main effect deletion probability during deletion. Default is 0.9.
 #' @param dprobi A numeric value between 0 and 1, defined by users.
 #' The interaction effect deletion probability during deletion. Default is 0.1.
-#' @param take Number of top candidate models to display. Default is 3.
+#' @param take Only used when \code{allout = "No"}. Number of top candidate models
+#' to display. Default is 3.
 #'
 #' @return A list of output. If \code{allout = "Yes"}, then the components are:
 #' \itemize{
@@ -74,6 +75,8 @@
 #' @importFrom ggplot2 theme
 #' @importFrom ggplot2 element_text
 #' @importFrom ggplot2 labs
+#' @importFrom dplyr distinct
+#' @importFrom stats na.omit
 #'
 #' @examples # allout = "No"
 #'
