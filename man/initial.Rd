@@ -9,6 +9,7 @@ initial(
   y,
   heredity = "Strong",
   nmain.p,
+  sigma = NULL,
   r1,
   r2,
   interaction.ind = NULL,
@@ -33,25 +34,31 @@ of observations in \code{X}.}
 \item{nmain.p}{A numeric value that represents the total number of main effects
 in \code{X}.}
 
-\item{r1}{A numeric value indicating the maximum number of main effects.}
+\item{sigma}{The standard deviation of the noise term. In practice, sigma is usually
+unknown. In such case, this function automatically estimate sigma using root mean
+square error (RMSE). Default is NULL. Otherwise, users need to enter a numeric value.}
 
-\item{r2}{A numeric value indicating the maximum number of interaction effects.}
+\item{r1}{A numeric value indicating the maximum number of main effects. This number
+can be different from the \code{r1} defined in \code{\link{inter_detection}}.}
+
+\item{r2}{A numeric value indicating the maximum number of interaction effects.
+This number can be different from the \code{r2} defined in \code{\link{inter_detection}}.}
 
 \item{interaction.ind}{A two-column numeric matrix containing all possible
 two-way interaction effects. It must be generated outside of this function
 using \code{t(utils::combn())}. See Example section for details.}
 
 \item{pi1}{A numeric value between 0 and 1, defined by users. Default is 0.32.
-For guidance on selecting an appropriate value, please refer to the Details section.}
+For guidance on selecting an appropriate value, please refer to \code{\link{ABC}}.}
 
 \item{pi2}{A numeric value between 0 and 1, defined by users. Default is 0.32.
-For guidance on selecting an appropriate value, please refer to the Details section.}
+For guidance on selecting an appropriate value, please refer to \code{\link{ABC}}.}
 
 \item{pi3}{A numeric value between 0 and 1, defined by users. Default is 0.32.
-For guidance on selecting an appropriate value, please refer to the Details section.}
+For guidance on selecting an appropriate value, please refer to \code{\link{ABC}}.}
 
 \item{lambda}{A numeric value defined by users. Default is 10.
-For guidance on selecting an appropriate value, please refer to the Details section.}
+For guidance on selecting an appropriate value, please refer to \code{\link{ABC}}.}
 
 \item{q}{A numeric value indicating the number of models in each generation (e.g.,
 the population size). Default is 40.}
@@ -70,16 +77,6 @@ second column contains its corresponding ABC score.}
 This function automatically ranks all candidate interaction effects under
 Strong, Weak, or No heredity condition and obtains initial candidate models.
 }
-\details{
-\itemize{
-\item For inputs \code{pi1}, \code{pi2}, and \code{pi3}, the number needs to
-satisfy the condition: \eqn{\pi_1+\pi_2+\pi_3=1-\pi_0} where \eqn{\pi_0}
-is a numeric value between 0 and 1, the smaller the better.
-\item For input \code{lambda}, the number needs to satisfy the condition:
-\eqn{\lambda\geq 5.1/log(2)}.
-\item For input \code{q}, this number is fixed throughout each generation.
-}
-}
 \examples{
 # Under Strong heredity
 set.seed(0)
@@ -90,7 +87,6 @@ epl <- rnorm(50,0,0.01)
 y<- 1+X[,1]+X[,2]+X[,1]*X[,2]+epl
 p1 <- initial(X, y, nmain.p = 4, r1 = 3, r2 = 3,
     interaction.ind = interaction.ind, q = 5)
-p1
 }
 \seealso{
 \code{\link{ABC}}, \code{\link{Extract}}.
