@@ -1,5 +1,7 @@
 # AVGAS
 
+Repo update status: in progress
+
 ## Installation
 ```{r}
 library(devtools)

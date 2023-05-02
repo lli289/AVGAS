@@ -81,6 +81,14 @@ ABC <- function(X, y, heredity = "Strong", nmain.p, sigma = NULL,
                 pi1 = 0.32, pi2 = 0.32, pi3 = 0.32, lambda = 10){
   colnames(X) <- make.names(rep("","X",ncol(X)+1),unique=TRUE)[-1]
   n <- dim(X)[1]
+
+  if (is.null(sigma)){
+    full <- Extract(X, varind = c(1:(dim(X)[2]+dim(interaction.ind)[1])), interaction.ind)
+    sigma <- estimateSigma(full, y)$sigmahat
+  }else{
+    sigma <- sigma
+  }
+
   if (extract == "Yes"){
     if (is.null(varind)) stop("You must specify the variables to be extracted")
     if (is.null(interaction.ind)) stop("Interaction.ind is missing.
@@ -104,12 +112,6 @@ ABC <- function(X, y, heredity = "Strong", nmain.p, sigma = NULL,
   }
   SSE <- sum((y - yhat)^2)
 
-  if (is.null(sigma)){
-    sigma = sqrt(SSE/(length((y - yhat))- length(allpar)))
-  }else{
-    sigma = sigma
-  }
-
   if (heredity == "Strong"){
     C.I.strong <- -log(pi1)+log(min(nmain.p,n))+log(min(mychoose(k1),n))
     + log(choose(nmain.p,k1))+ log(choose(choose(k1,2),k2))
@@ -131,5 +133,4 @@ ABC <- function(X, y, heredity = "Strong", nmain.p, sigma = NULL,
   }
   return(ABC)
 }
-
 

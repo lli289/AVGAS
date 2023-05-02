@@ -2,7 +2,7 @@
 % Please edit documentation in R/AVGAS.R
 \name{AVGAS}
 \alias{AVGAS}
-\title{Title}
+\title{A Variable selection using Genetic AlgorithmS}
 \usage{
 AVGAS(
   X,
@@ -96,7 +96,8 @@ The main effect deletion probability during deletion. Default is 0.9.}
 \item{dprobi}{A numeric value between 0 and 1, defined by users.
 The interaction effect deletion probability during deletion. Default is 0.1.}
 
-\item{take}{Number of top candidate models to display. Default is 3.}
+\item{take}{Only used when \code{allout = "No"}. Number of top candidate models
+to display. Default is 3.}
 }
 \value{
 A list of output. If \code{allout = "Yes"}, then the components are:
@@ -112,7 +113,7 @@ second column contains its corresponding ABC score.}
 }
 }
 \description{
-Title
+A Variable selection using Genetic AlgorithmS
 }
 \examples{
 # allout = "No"
