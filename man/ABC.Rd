@@ -9,6 +9,7 @@ ABC(
   y,
   heredity = "Strong",
   nmain.p,
+  sigma = NULL,
   extract = "No",
   varind = NULL,
   interaction.ind = NULL,
@@ -31,6 +32,10 @@ of observations in \code{X}.}
 
 \item{nmain.p}{A numeric value that represents the total number of main effects
 in \code{X}.}
+
+\item{sigma}{The standard deviation of the noise term. In practice, sigma is usually
+unknown. In such case, this function automatically estimate sigma using root mean
+square error (RMSE). Default is NULL. Otherwise, users need to enter a numeric value.}
 
 \item{extract}{A either "Yes" or "No" logical vector that represents whether or not
 to extract specific columns from \code{X}. Default is "No".}
@@ -77,6 +82,7 @@ is a numeric value between 0 and 1, the smaller the better.
 }
 }
 \examples{
+# sigma is unknown
 set.seed(0)
 nmain.p <- 4
 interaction.ind <- t(combn(4,2))
@@ -86,6 +92,12 @@ y<- 1+X[,1]+X[,2]+X[,3]+X[,4]+epl
 ABC(X, y, nmain.p = 4)
 ABC(X, y, nmain.p = 4, extract = "Yes",
     varind = c(1,2,5), interaction.ind = interaction.ind)
+
+# users want to enter a suggested value for sigma
+ABC(X, y, nmain.p = 4, sigma = 0.01)
+ABC(X, y, nmain.p = 4, sigma = 0.01, extract = "Yes",
+    varind = c(1,2,5), interaction.ind = interaction.ind)
+
 }
 \references{
 Ye, C. and Yang, Y., 2019. \emph{High-dimensional adaptive minimax sparse estimation with interactions.}
