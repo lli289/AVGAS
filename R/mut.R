@@ -105,45 +105,50 @@ mut <- function(parents, heredity = "Strong", nmain.p,
         ccc <- as.numeric(single.child.mutated[i,][which(single.child.mutated[i,]>nmain.p)])
 
         dmain <- stats::rbinom(1, 1, prob = dprobm)
-        if (as.logical(dmain)){
+        if (as.logical(dmain) & !length(bbb)==0){
           sample_index <- as.numeric(mysample(bbb,1))
+          deletionind <- sample_index
         }
         dinter <- stats::rbinom(1, 1, prob = dprobi)
-        if (dmain == FALSE & as.logical(dinter)){
+        if (dmain == FALSE & as.logical(dinter) & !length(dinter)==0){
           sample_index <- as.numeric(mysample(ccc,1))
+          deletionind <- sample_index
         }
-        deletionind <- sample_index
 
-        if (heredity == "No"){
-          if (interonly == "Yes"){
-            single.child.mutated[i,] <- replace(single.child.mutated[i,], which(single.child.mutated[i,] < nmain.p+1), 0)
-          }else{
+        if (dmain == FALSE & dinter == FALSE){
+          single.child.mutated[i,] <- single.child.mutated[i,]
+        }else{
+          if (heredity == "No"){
+            if (interonly == "Yes"){
+              single.child.mutated[i,] <- replace(single.child.mutated[i,], which(single.child.mutated[i,] < nmain.p+1), 0)
+            }else{
+              single.child.mutated[i,] <- replace(single.child.mutated[i,], which(single.child.mutated[i,] == deletionind), 0)
+            }
+          }
+
+          if (heredity == "Strong"){
+            if (deletionind %in% 1:nmain.p){
+              mutate.inter <- single.child.mutated[i,][single.child.mutated[i,] >nmain.p]
+              for (j in 1:length(mutate.inter)) {
+                if (any(interaction.ind[mutate.inter[j]-nmain.p,] %in% deletionind)){
+                  single.child.mutated[i,] <- replace(single.child.mutated[i,], which(single.child.mutated[i,] == mutate.inter[j]), 0)
+                }
+              }
+            }
             single.child.mutated[i,] <- replace(single.child.mutated[i,], which(single.child.mutated[i,] == deletionind), 0)
           }
-        }
 
-        if (heredity == "Strong"){
-          if (deletionind %in% 1:nmain.p){
-            mutate.inter <- single.child.mutated[i,][single.child.mutated[i,] >nmain.p]
-            for (j in 1:length(mutate.inter)) {
-              if (any(interaction.ind[mutate.inter[j]-nmain.p,] %in% deletionind)){
-                single.child.mutated[i,] <- replace(single.child.mutated[i,], which(single.child.mutated[i,] == mutate.inter[j]), 0)
+          if (heredity =="Weak"){
+            if (deletionind %in% 1:nmain.p){
+              mutate.inter <- single.child.mutated[i,][single.child.mutated[i,] > nmain.p]
+              for (j in 1:length(mutate.inter)) {
+                if (!any(interaction.ind[mutate.inter[j]-nmain.p,]%in% setdiff(single.child.mutated[i,],deletionind))){
+                  single.child.mutated[i,] <- replace(single.child.mutated[i,], which(single.child.mutated[i,] == mutate.inter[j]), 0)
+                }
               }
             }
+            single.child.mutated[i,] <- replace(single.child.mutated[i,], which(single.child.mutated[i,] == deletionind), 0)
           }
-          single.child.mutated[i,] <- replace(single.child.mutated[i,], which(single.child.mutated[i,] == deletionind), 0)
-        }
-
-        if (heredity =="Weak"){
-          if (deletionind %in% 1:nmain.p){
-            mutate.inter <- single.child.mutated[i,][single.child.mutated[i,] > nmain.p]
-            for (j in 1:length(mutate.inter)) {
-              if (!any(interaction.ind[mutate.inter[j]-nmain.p,]%in% setdiff(single.child.mutated[i,],deletionind))){
-                single.child.mutated[i,] <- replace(single.child.mutated[i,], which(single.child.mutated[i,] == mutate.inter[j]), 0)
-              }
-            }
-          }
-          single.child.mutated[i,] <- replace(single.child.mutated[i,], which(single.child.mutated[i,] == deletionind), 0)
         }
       }
     }
