@@ -16,9 +16,9 @@
 #' unknown. In such case, this function automatically estimate sigma using root mean
 #' square error (RMSE). Default is NULL. Otherwise, users need to enter a numeric value.
 #' @param r1 A numeric value indicating the maximum number of main effects. This number
-#' can be different from the \code{r1} defined in \code{\link{inter_detection}}.
+#' can be different from the \code{r1} defined in \code{\link{detect}}.
 #' @param r2 A numeric value indicating the maximum number of interaction effects.
-#' This number can be different from the \code{r2} defined in \code{\link{inter_detection}}.
+#' This number can be different from the \code{r2} defined in \code{\link{detect}}.
 #' @param interaction.ind A two-column numeric matrix containing all possible
 #' two-way interaction effects. It must be generated outside of this function
 #' using \code{t(utils::combn())}. See Example section for details.
@@ -42,12 +42,6 @@
 #' \item{mainind.sel}{Selected main effects.  A \code{r1}-dimensional vector.}
 #' \item{mainpool}{Ranked main effects in \code{X}.}
 #' @export
-#' @importFrom utils combn
-#' @importFrom Matrix rankMatrix
-#' @importFrom pracma orth
-#' @importFrom stats rnorm
-#' @importFrom VariableScreening screenIID
-#' @importFrom stats na.exclude
 #'
 #' @seealso \code{\link{ABC}}, \code{\link{Extract}}.
 #' @examples # Under Strong heredity
@@ -70,7 +64,7 @@ initial <- function(X, y, heredity = "Strong",
   colnames(X) <- make.names(rep("","X",ncol(X)+1),unique=TRUE)[-1]
   max_model_size <- r1 + r2
 
-  aaa <- detect(X, y, heredity = heredity,
+  aaa <- int(X, y, heredity = heredity,
                          nmain.p = nmain.p, sigma = sigma, r1, r2,
                          interaction.ind = interaction.ind,
                          pi1 = pi1, pi2 = pi2, pi3 = pi3,
