@@ -38,11 +38,9 @@ in \code{X}.}
 unknown. In such case, this function automatically estimate sigma using root mean
 square error (RMSE). Default is NULL. Otherwise, users need to enter a numeric value.}
 
-\item{r1}{A numeric value indicating the maximum number of main effects. This number
-can be different from the \code{r1} defined in \code{\link{inter_detection}}.}
+\item{r1}{A numeric value indicating the maximum number of main effects.}
 
-\item{r2}{A numeric value indicating the maximum number of interaction effects.
-This number can be different from the \code{r2} defined in \code{\link{inter_detection}}.}
+\item{r2}{A numeric value indicating the maximum number of interaction effects.}
 
 \item{interaction.ind}{A two-column numeric matrix containing all possible
 two-way interaction effects. It must be generated outside of this function
@@ -85,10 +83,10 @@ epl <- rnorm(50,0,0.01)
 y<- 1+X[,1]+X[,2]+X[,1]*X[,2]+epl
 d1 <- detect(X, y, nmain.p = 4, r1 = 3, r2 = 3,
     interaction.ind = interaction.ind, q = 5)
+
 # under No heredity
 d2 <- detect(X, y, heredity = "No", nmain.p = 4, r1 = 3, r2 = 3,
     interaction.ind = interaction.ind, q = 5)
-
 
 }
 \seealso{
