@@ -39,10 +39,10 @@ unknown. In such case, this function automatically estimate sigma using root mea
 square error (RMSE). Default is NULL. Otherwise, users need to enter a numeric value.}
 
 \item{r1}{A numeric value indicating the maximum number of main effects. This number
-can be different from the \code{r1} defined in \code{\link{inter_detection}}.}
+can be different from the \code{r1} defined in \code{\link{detect}}.}
 
 \item{r2}{A numeric value indicating the maximum number of interaction effects.
-This number can be different from the \code{r2} defined in \code{\link{inter_detection}}.}
+This number can be different from the \code{r2} defined in \code{\link{detect}}.}
 
 \item{interaction.ind}{A two-column numeric matrix containing all possible
 two-way interaction effects. It must be generated outside of this function
