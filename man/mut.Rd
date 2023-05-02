@@ -77,7 +77,7 @@ nmain.p <- 4
 interaction.ind <- t(combn(4,2))
 X <- matrix(rnorm(50*4,1,0.1), 50, 4)
 epl <- rnorm(50,0,0.01)
-y<- 1+X[,1]+X[,2]+X[,1]*X[,2]+epl
+y <- 1+X[,1]+X[,2]+X[,1]*X[,2]+epl
 p1 <- initial(X, y, nmain.p = 4, r1 = 3, r2 = 3,
     interaction.ind = interaction.ind, q = 5)
 m1 <- mut(p1, nmain.p = 4, r1 = 3, r2 = 3,
