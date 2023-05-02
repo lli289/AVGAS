@@ -70,6 +70,11 @@
 #' ABC(X, y, nmain.p = 4, sigma = 0.01, extract = "Yes",
 #'     varind = c(1,2,5), interaction.ind = interaction.ind)
 #'
+#' @examples # model with only one predictor
+#' \dontrun{
+#' ABC(X, y, nmain.p = 4, extract = "Yes",
+#'   varind = 1, interaction.ind = interaction.ind) # warning message
+#' }
 
 ABC <- function(X, y, heredity = "Strong", nmain.p, sigma = NULL,
                 extract = "No", varind = NULL, interaction.ind = NULL,
