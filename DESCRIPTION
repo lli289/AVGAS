@@ -9,9 +9,9 @@ Authors@R:
     role = "aut", 
     email = "chenglong.ye@uky.edu"))
 Description: We provide a stage-wise selection methond using genetic algorithm which can perform fast interaction selection in high-dimensional linear regression models with two-way interaction effects under strong, weak, or no heredity condition. 
-License: GPL (>= 3)
+License: GPL-2
 Encoding: UTF-8
-Imports: utils, Matrix, pracma, stats, VariableScreening, dplyr, ggplot2
+Imports: utils, Matrix, pracma, stats, dplyr, VariableScreening, ggplot2
 Language: en-US
 Author: Leiyue Li [aut, cre],
   Chenglong Ye[aut]
