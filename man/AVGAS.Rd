@@ -2,7 +2,7 @@
 % Please edit documentation in R/AVGAS.R
 \name{AVGAS}
 \alias{AVGAS}
-\title{Title}
+\title{A Variable selection using Genetic AlgorithmS}
 \usage{
 AVGAS(
   X,
@@ -113,7 +113,7 @@ second column contains its corresponding ABC score.}
 }
 }
 \description{
-Title
+A Variable selection using Genetic AlgorithmS
 }
 \examples{
 # allout = "No"
