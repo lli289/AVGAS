@@ -1,4 +1,4 @@
-#' Title
+#' A Variable selection using Genetic AlgorithmS
 #'
 #' @param X Input data. An optional data frame, or numeric matrix of dimension
 #' \code{n} by \code{nmain.p}. Note that the two-way interaction effects should not
