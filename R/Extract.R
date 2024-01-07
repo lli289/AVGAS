@@ -40,9 +40,7 @@
 #' Extract(X1, varind = 5, interaction.ind)
 #'
 #' @examples # Extract using duplicated values in varind.
-#' \dontrun{
-#' Extract(X1, varind = c(1,1), interaction.ind) # this will not run
-#' }
+#' try(Extract(X1, varind = c(1,1), interaction.ind)) # this will not run
 
 Extract <- function(X, varind, interaction.ind = NULL){
   if (is.null(interaction.ind)) stop("Interaction.ind is missing.

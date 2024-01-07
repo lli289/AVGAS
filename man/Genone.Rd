@@ -94,8 +94,7 @@ The main effect deletion probability during deletion. Default is 0.9.}
 The interaction effect deletion probability during deletion. Default is 0.1.}
 }
 \value{
-A list of output. If \code{allout = "Yes"}, then the components are:
-\itemize{
+A list of output. The components are:
 \item{newparents}{ New parents models used for t+1-th generation. A numeric matrix
 of dimension \code{q} by \code{r1+r2} where each row represents a fitted model.
 Duplicated models are allowed.}
@@ -111,8 +110,6 @@ representing the ABC score of that fitted model. Duplicated models are not allow
 \item{InterRank}{ Rank of all candidate interaction effects. A two-column numeric
 matrix. The first column contains indices of ranked two-way interaction effects, and the
 second column contains its corresponding ABC score.}
-}
-Otherwise, only \code{newparents} and \code{InterRank} will be returned.
 }
 \description{
 This function automatically ranks all candidate interaction effects under

@@ -45,14 +45,14 @@
 #'
 #' @seealso \code{\link{ABC}}, \code{\link{Extract}}.
 #' @examples # Under Strong heredity
-#' set.seed(0)
-#' nmain.p <- 4
-#' interaction.ind <- t(combn(4,2))
-#' X <- matrix(rnorm(50*4,1,0.1), 50, 4)
-#' epl <- rnorm(50,0,0.01)
-#' y<- 1+X[,1]+X[,2]+X[,1]*X[,2]+epl
-#' p1 <- initial(X, y, nmain.p = 4, r1 = 3, r2 = 3,
-#'     interaction.ind = interaction.ind, q = 5)
+# set.seed(0)
+# nmain.p <- 4
+# interaction.ind <- t(combn(4,2))
+# X <- matrix(rnorm(50*4,1,0.1), 50, 4)
+# epl <- rnorm(50,0,0.01)
+# y <- 1+X[,1]+X[,2]+X[,1]*X[,2]+epl
+# p1 <- initial(X, y, nmain.p = 4, r1 = 3, r2 = 3,
+#     interaction.ind = interaction.ind, q = 5)
 
 initial <- function(X, y, heredity = "Strong",
                     nmain.p, sigma = NULL,  r1, r2,
@@ -60,7 +60,7 @@ initial <- function(X, y, heredity = "Strong",
                     pi1 = 0.32, pi2 = 0.32, pi3 = 0.32,
                     lambda = 10, q = 40){
   if (is.null(interaction.ind)) stop("Interaction.ind is missing.
-                                       Use t(utils::combn()) to generate interaction matrix.")
+                                       Use t(utils::combn()) or indchunked() to generate interaction matrix.")
   colnames(X) <- make.names(rep("","X",ncol(X)+1),unique=TRUE)[-1]
   max_model_size <- r1 + r2
 

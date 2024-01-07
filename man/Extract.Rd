@@ -50,9 +50,7 @@ Extract(X1, varind = c(1,5), interaction.ind)
 Extract(X1, varind = 5, interaction.ind)
 
 # Extract using duplicated values in varind.
-\dontrun{
-Extract(X1, varind = c(1,1), interaction.ind) # this will not run
-}
+try(Extract(X1, varind = c(1,1), interaction.ind)) # this will not run
 }
 \seealso{
 \code{\link{ABC}}, \code{\link{initial}}.

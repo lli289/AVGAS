@@ -48,8 +48,7 @@
 #' @param take Only used when \code{allout = "No"}. Number of top candidate models
 #' to display. Default is 3.
 #'
-#' @return A list of output. If \code{allout = "Yes"}, then the components are:
-#' \itemize{
+#' @return A list of output. The components are:
 #' \item{final_model}{The final selected model.}
 #' \item{cleaned_candidate_model}{All candidate models where each row corresponding
 #' to a fitted model; the first 1 to \code{r1 + r2} columns representing the predictor
@@ -58,10 +57,10 @@
 #' \item{InterRank}{Rank of all candidate interaction effects. A two-column numeric
 #' matrix. The first column contains indices of ranked two-way interaction effects, and the
 #' second column contains its corresponding ABC score.}
-#' }
 #' @export
 #' @seealso \code{\link{initial}}, \code{\link{cross}}, \code{\link{mut}}, \code{\link{ABC}}, \code{\link{Genone}}, and \code{\link{Extract}}.
 #' @importFrom utils combn
+#' @importFrom selectiveInference estimateSigma
 #' @importFrom Matrix rankMatrix
 #' @importFrom pracma orth
 #' @importFrom stats rnorm
@@ -80,19 +79,19 @@
 #'
 #' @examples # allout = "No"
 #'
-#' set.seed(0)
-#' nmain.p <- 4
-#' interaction.ind <- t(combn(4,2))
-#' X <- matrix(rnorm(50*4,1,0.1), 50, 4)
-#' epl <- rnorm(50,0,0.01)
-#' y <- 1+X[,1]+X[,2]+X[,1]*X[,2]+epl
-#'
-#' a1 <- AVGAS(X, y, nmain.p=4, r1=3, r2=3,
-#'     interaction.ind = interaction.ind, q=5)
+# set.seed(0)
+# nmain.p <- 4
+# interaction.ind <- t(combn(4,2))
+# X <- matrix(rnorm(50*4,1,0.1), 50, 4)
+# epl <- rnorm(50,0,0.01)
+# y <- 1+X[,1]+X[,2]+X[,1]*X[,2]+epl
+#
+# a1 <- AVGAS(X, y, nmain.p=4, r1=3, r2=3,
+#     interaction.ind = interaction.ind, q=5)
 #'
 #' @examples # allout = "Yes"
-#' a2 <- AVGAS(X, y, nmain.p=4, r1=3, r2=3,
-#'     interaction.ind = interaction.ind, q=5, allout = "Yes")
+# a2 <- AVGAS(X, y, nmain.p=4, r1=3, r2=3,
+#     interaction.ind = interaction.ind, q=5, allout = "Yes")
 #'
 AVGAS <- function(X, y, heredity = "Strong", nmain.p, r1, r2, sigma = NULL,
                   interaction.ind = NULL, lambda = 10, q = 40, allout = "No",

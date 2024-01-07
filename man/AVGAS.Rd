@@ -100,8 +100,7 @@ The interaction effect deletion probability during deletion. Default is 0.1.}
 to display. Default is 3.}
 }
 \value{
-A list of output. If \code{allout = "Yes"}, then the components are:
-\itemize{
+A list of output. The components are:
 \item{final_model}{The final selected model.}
 \item{cleaned_candidate_model}{All candidate models where each row corresponding
 to a fitted model; the first 1 to \code{r1 + r2} columns representing the predictor
@@ -111,26 +110,14 @@ ABC score of that fitted model. Duplicated models are not allowed.}
 matrix. The first column contains indices of ranked two-way interaction effects, and the
 second column contains its corresponding ABC score.}
 }
-}
 \description{
 A Variable selection using Genetic AlgorithmS
 }
 \examples{
 # allout = "No"
 
-set.seed(0)
-nmain.p <- 4
-interaction.ind <- t(combn(4,2))
-X <- matrix(rnorm(50*4,1,0.1), 50, 4)
-epl <- rnorm(50,0,0.01)
-y <- 1+X[,1]+X[,2]+X[,1]*X[,2]+epl
-
-a1 <- AVGAS(X, y, nmain.p=4, r1=3, r2=3,
-    interaction.ind = interaction.ind, q=5)
 
 # allout = "Yes"
-a2 <- AVGAS(X, y, nmain.p=4, r1=3, r2=3,
-    interaction.ind = interaction.ind, q=5, allout = "Yes")
 
 }
 \seealso{

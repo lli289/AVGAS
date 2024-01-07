@@ -47,7 +47,7 @@ automatically generates corresponding two-way interaction effects from \code{X}.
 
 \item{interaction.ind}{Only used when \code{extract = "Yes"}. A two-column numeric
 matrix containing all possible two-way interaction effects. It must be generated
-outside of this function using \code{t(utils::combn())}. See Example section for
+outside of this function using \code{t(utils::combn())} or \code{indchunked()}. See Example section for
 details.}
 
 \item{pi1}{A numeric value between 0 and 1, defined by users. Default is 0.32.
@@ -89,20 +89,15 @@ interaction.ind <- t(combn(4,2))
 X <- matrix(rnorm(50*4,1,0.1), 50, 4)
 epl <- rnorm(50,0,0.01)
 y<- 1+X[,1]+X[,2]+X[,3]+X[,4]+epl
-ABC(X, y, nmain.p = 4)
+ABC(X, y, nmain.p = 4, interaction.ind = interaction.ind)
 ABC(X, y, nmain.p = 4, extract = "Yes",
     varind = c(1,2,5), interaction.ind = interaction.ind)
-
+#'
 # users want to enter a suggested value for sigma
-ABC(X, y, nmain.p = 4, sigma = 0.01)
-ABC(X, y, nmain.p = 4, sigma = 0.01, extract = "Yes",
-    varind = c(1,2,5), interaction.ind = interaction.ind)
 
 # model with only one predictor
-\dontrun{
-ABC(X, y, nmain.p = 4, extract = "Yes",
-  varind = 1, interaction.ind = interaction.ind) # warning message
-}
+try(ABC(X, y, nmain.p = 4, extract = "Yes",
+  varind = 1, interaction.ind = interaction.ind)) # warning message
 }
 \references{
 Ye, C. and Yang, Y., 2019. \emph{High-dimensional adaptive minimax sparse estimation with interactions.}
