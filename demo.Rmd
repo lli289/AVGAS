@@ -1,0 +1,85 @@
+---
+title: "A demonstration of the AVGAS package"
+author: "Lillian Li"
+output: pdf_document
+---
+A short demo of the usage for the AVGAS package. This package implements the Genetic Algorithm for high-dimensional linear regression models with two-way interaction effects under Strong, Weak, or No heredity condition. 
+
+# Introduciton
+
+**The Model Setup**
+
+Suppose the dataset consists of $(\textbf{X},\textbf{Y})$, where $\textbf{Y} = (y_1,\ldots,y_n)^T$ is the $n\times 1$ response vector, and $\textbf{X}= (\textbf{x}_1,\ldots,\textbf{x}_p)$ is the $n\times p$ design matrix with $n$ observations and $p$ covariates. In high-dimensional linear regression with interactions, suppose the data $\{(\textbf{x}_i,y_i)\}_{i=1}^{n}$are $i.i.d.$ from the model 
+\begin{equation}
+	Y=\beta_1 X_1+\cdots+\beta_p X_p+\beta_{1,2}X_1X_2+\cdots+\beta_{p-1,p}X_{p-1}X_p+\epsilon,  
+\end{equation} 
+where $\epsilon \sim N(0,\sigma^2)$ is the noise, $\beta_i$ is the coefficient of the main effect $X_i$, and $\beta_{i,j}$ is the coefficient of the interaction effect $X_iX_j$ (product of $X_i$ and $X_j$). We restate strong, weak, and no hierarchical structures. \textbf{Strong heredity} assumes that if an interaction effect has non-zero effect, then both of its corresponding main effects should have non-zero effect. That is, if $\beta_{i,j}\neq 0$, then $\beta_i\neq 0$ and $\beta_j\neq 0$ for $1\le i\neq j \le p$. \textbf{Weak heredity} requires that if $\beta_{i,j}\neq 0$, then $\beta_i\neq 0$ or $\beta_j\neq 0$ for $1\le i\neq j \le p$. \textbf{No heredity} assumes no relationship between $I(\beta_{i,j}\neq 0)$, $I(\beta_{i}\neq 0)$, and $I(\beta_{j}\neq 0)$.
+
+**Genetic Algorithm**
+
+Genetic Algorithm (GA), a stochastic search algorithm inspired by biological evolution and natural selection. A genetic algorithm in variable selection is a mathematical optimization technique that identifies the optimal or a near-optimal subset of solutions for a given problem. This process first creates a population/generation of potential models and then evaluates their performances based on a predefined criterion usually called the fitness or objective function. Then an evolution process (such as crossover and mutation) is conducted in each generation to generate new models. Better candidate
+models (with larger fitness values) will be selected during the evolution process through a series of generations. The best model of the last generation will be selected as the final model. Genetic algorithms can be particularly useful in variable selection when it is impossible to list all the candidate models.
+
+**The fitness or objective function: ABC criterion**
+The criterion ABC is defined as follows: 
+\begin{equation}
+	ABC(I)=\sum\limits_{i=1}^n\bigg(Y_i-\hat{Y}_i^{I}\bigg)^2+2r_I\sigma^2+\lambda\sigma^2C_I,\label{eq:abc}
+\end{equation}
+where $C_I$ is the descriptive complexity term of model $I$, $\hat{\textbf{Y}}^{I}$ is the projection of the response vector $\textbf{Y}$ onto the column space of the design matrix of the model $I$ with rank $r_I$. The terms $\lambda\geq 5.1/\log 2$ is a positive constant, and {$\sigma$ is the standard deviation of the noise term which in practice, is unknown. In such a case, we estimate $\sigma$ by fitting a lasso regression on the full model.
+
+For details, please refer to the paper by *Ye C, Yang Y (2019). “High-dimensional adaptive minimax sparse estimation with interactions.” IEEE Transactions on Information Theory, 65(9), 5367–5379. doi:10.1109/TIT.2019.2913417*
+
+# Installation
+
+AVGAS is now available on CRAN and can be easily instally by one-line code.
+
+```
+install.packages("AVGAS")
+```
+
+# Examples on Simulated Data
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(AVGAS)
+```
+
+We generate data from the model setup under $(n=400,p=100,\sigma=0.1)$. The covariates $X_1,\ldots,X_{400}$ are generated i.i.d. from a multivariate Gaussian distribution $\mathcal{N}(\mathbf{0},\Sigma)$, where the $(i,j)$-th entry of the covariance matrix is $\Sigma_{jk}=0.5^{|j-k|}$ for $1\le j,k\le 100$. Denote *A* as the index sets of the main effects, and *B* as the index set of interaction effects. Concatenate the coefficients as $\beta$. Consider the following data-generating models:
+
+*A*={1,2,...,10}, and *B*= {(1,2),(1,3),(2,3),(2,5),(3,4),(6,8),(6,10),(7,8),(7,9),(9,10)} with true regression coefficients $\beta=(3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1)^T$.
+
+```{r}
+set.seed(0)
+p <- 100
+interaction.ind <- t(combn(100,2))
+sigmajk <- matrix((0.5)^(abs(outer(1:100, 1:100, "-"))), 
+                  nrow = 100, ncol = 100)
+X <- mvtnorm::rmvnorm(400, rep(0,nrow(sigmajk)), sigmajk)
+epl <- rnorm(400,0,0.1) 
+beta.est <- matrix(0, nrow = 20, ncol=1)
+beta.est[c(1:20),] <- c(rep(3,5), rep(2,10), rep(1,5)) 
+y <- Extract(X, c(1:10,101,102,200,202,298,587,589,680,681,865),
+             interaction.ind)%*%beta.est+epl
+y <- as.numeric(y)
+AVGAS(X, y, nmain.p=100, r1=10, r2=10, heredity = "Strong", 
+      interaction.ind = interaction.ind, q=40, take = 1)
+```
+
+**Plotting the interaction effects**
+
+```{r}
+bbb <- initial( X, y, heredity = "Strong", nmain.p=100, 
+                interaction.ind = interaction.ind, 
+                r1 = 10, r2=10, q = 40)
+interpool <- bbb$InterRank
+ccc <- as.data.frame(interpool)
+inter <- ccc[,1]
+scores <- ccc[,2]
+gp <- ggplot2::ggplot(ccc,ggplot2::aes(x = stats::reorder(as.character(inter),
+                                           + as.numeric(scores)), 
+                                       y = as.numeric(scores))) +
+      geom_point() + 
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90)) + 
+  ggplot2::labs(y = "ABC Scores", x = "Interaction Index")
+gp
+```
