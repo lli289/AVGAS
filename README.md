@@ -11,7 +11,7 @@ install_github("lli289/AVGAS")
 
 * CRAN
 ```{r}
-install.packages("AVGAS)
+install.packages("AVGAS")
 library(AVGAS)
 ```
 ## Documentation
