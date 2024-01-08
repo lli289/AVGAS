@@ -1,7 +1,5 @@
 # AVGAS
 
-Repo update status: in progress
-
 ## Installation
 * GitHub
 ```{r}
